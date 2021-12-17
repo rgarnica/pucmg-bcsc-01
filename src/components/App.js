@@ -81,6 +81,14 @@ class App extends Component {
       })
   }
 
+  changeProductPrice(id, price) {
+    this.setState({ loading: true })
+    this.state.marketplace.methods.changeProductPrice(id).send({ from: this.state.account, value: price })
+      .once('receipt', (receipt) => {
+        this.setState({ loading: false })
+      })
+  }
+
   render() {
     return (
       <div>
@@ -92,8 +100,11 @@ class App extends Component {
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
                 : <Main
                   products = {this.state.products}
+                  account = {this.state.account}
                   createProduct = {this.createProduct}
-                  purchaseProduct = {this.purchaseProduct} />
+                  purchaseProduct = {this.purchaseProduct}
+                  changeProductPrice = {this.changeProductPrice}
+                  />
               }
             </main>
           </div>
