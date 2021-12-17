@@ -1,8 +1,7 @@
-import React, { Component, useState } from 'react';
-// import NewModal from './Modal';
+import React, { Component } from 'react';
 
-// const [state, setstate] = useState(false);
 class Main extends Component {
+
   render() {
     return (
       <div id="content">
@@ -58,7 +57,7 @@ class Main extends Component {
                       ? <button
                         name={product.id}
                         value={product.price}
-                        disabled={!product.isForSelling}
+                        disabled={product.isForSelling}
                         onClick={(event) => {
                           this.props.purchaseProduct(event.target.name, event.target.value)
                         }}
@@ -75,8 +74,7 @@ class Main extends Component {
                         value={product.price}
                         disabled={product.owner != this.props.account}
                         onClick={(event) => {
-                          // this.props.changeProductPrice(event.target.name, event.target.value)
-                          setstate(true)
+                          this.props.changeProductPrice(event.target.name, event.target.value)
                         }}
                         >
                           Modificar Preço
@@ -90,11 +88,28 @@ class Main extends Component {
                         name={product.id}
                         value={product.price}
                         onClick={(event) => {
-                          console.log(product)
-                          console.log(this.props)
+                          this.props.changeProductStatusForSelling(event.target.name, false)
+                          // console.log(product)
+                          // console.log(this.props)
                         }}
                         >
                           Inativar
+                        </button>
+                      : null
+                    }
+                  </td>
+                  <td>
+                    {!product.isForSelling
+                      ? <button
+                        name={product.id}
+                        value={product.price}
+                        onClick={(event) => {
+                          this.props.changeProductStatusForSelling(event.target.name, true)
+                          // console.log(product)
+                          // console.log(this.props)
+                        }}
+                        >
+                          Ativar
                         </button>
                       : null
                     }
@@ -104,9 +119,6 @@ class Main extends Component {
             })}
           </tbody>
         </table>
-        {/* <NewModal 
-        show={state}
-        /> */}
         <p><a href="https://ropsten.etherscan.io/address/0x781c71bfe45d1c5d81fca75d17bb589cc72d63fc" target="_blank">Informação do contrato</a></p>
       </div>
     );

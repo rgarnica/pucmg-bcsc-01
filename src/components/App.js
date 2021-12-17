@@ -63,6 +63,8 @@ class App extends Component {
 
     // this.createProduct = this.createProduct.bind(this)
     this.purchaseProduct = this.purchaseProduct.bind(this)
+    // this.purchaseProduct = this.changeProductPrice.bind(this)
+    // this.purchaseProduct = this.changeProductStatusForSelling.bind(this)
   }
 
   createProduct = (name, price) => {
@@ -81,9 +83,17 @@ class App extends Component {
       })
   }
 
-  changeProductPrice(id, price) {
+  changeProductPrice = (id, price) => {
     this.setState({ loading: true })
-    this.state.marketplace.methods.changeProductPrice(id).send({ from: this.state.account, value: price })
+    this.state.marketplace.methods.changeProductPrice(id, price).send({ from: this.state.account, value: price })
+      .once('receipt', (receipt) => {
+        this.setState({ loading: false })
+      })
+  }
+
+  changeProductStatusForSelling = (id, status) => {
+    this.setState({ loading: true })
+    this.state.marketplace.methods.changeProductStatusForSelling(id, status).send({ from: this.state.account })
       .once('receipt', (receipt) => {
         this.setState({ loading: false })
       })
@@ -104,6 +114,7 @@ class App extends Component {
                   createProduct = {this.createProduct}
                   purchaseProduct = {this.purchaseProduct}
                   changeProductPrice = {this.changeProductPrice}
+                  changeProductStatusForSelling = {this.changeProductStatusForSelling}
                   />
               }
             </main>

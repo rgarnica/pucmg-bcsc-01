@@ -69,6 +69,16 @@ contract Marketplace {
         products[_id].price = _price;
     }
 
+    function changeProductStatusForSelling(uint _id, bool _isForSelling) public {
+        // Fetch the product and make a copy of it
+        Product memory _product = products[_id];
+
+        //Make sure the product has valid id
+        require(_product.id > 0 && _product.id <= productCount, "Enter valid id");
+
+        products[_id].isForSelling = _isForSelling;
+    }
+
     function purchaseProduct(uint _id) public payable {
         //Fetch the product and make a copy of it
         Product memory _product = products[_id];
