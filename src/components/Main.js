@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+// import NewModal from './Modal';
 
+// const [state, setstate] = useState(false);
 class Main extends Component {
-
   render() {
     return (
       <div id="content">
@@ -57,6 +58,7 @@ class Main extends Component {
                       ? <button
                         name={product.id}
                         value={product.price}
+                        disabled={!product.isForSelling}
                         onClick={(event) => {
                           this.props.purchaseProduct(event.target.name, event.target.value)
                         }}
@@ -66,11 +68,45 @@ class Main extends Component {
                       : null
                     }
                   </td>
+                  <td>
+                    {product.purchased
+                      ? <button
+                        name={product.id}
+                        value={product.price}
+                        disabled={product.owner != this.props.account}
+                        onClick={(event) => {
+                          // this.props.changeProductPrice(event.target.name, event.target.value)
+                          setstate(true)
+                        }}
+                        >
+                          Modificar Preço
+                        </button>
+                      : null
+                    }
+                  </td>
+                  <td>
+                    {product.purchased
+                      ? <button
+                        name={product.id}
+                        value={product.price}
+                        onClick={(event) => {
+                          console.log(product)
+                          console.log(this.props)
+                        }}
+                        >
+                          Inativar
+                        </button>
+                      : null
+                    }
+                  </td>
                 </tr>
               )
             })}
           </tbody>
         </table>
+        {/* <NewModal 
+        show={state}
+        /> */}
         <p><a href="https://ropsten.etherscan.io/address/0x781c71bfe45d1c5d81fca75d17bb589cc72d63fc" target="_blank">Informação do contrato</a></p>
       </div>
     );
