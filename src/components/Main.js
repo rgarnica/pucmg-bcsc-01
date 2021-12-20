@@ -57,7 +57,7 @@ class Main extends Component {
                     <button
                       name={product.id}
                       value={product.price}
-                      disabled={product.isForSelling || product.owner === this.props.account}
+                      disabled={!product.isForSelling || product.owner === this.props.account}
                       onClick={(event) => {
                         this.props.purchaseProduct(event.target.name, event.target.value)
                       }}
