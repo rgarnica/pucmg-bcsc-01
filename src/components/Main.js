@@ -46,6 +46,7 @@ class Main extends Component {
           </thead>
           <tbody id="productList">
             {this.props.products.map((product, key) => {
+              if (key === 0) return null;
               return (
                 <tr key={key}>
                   <th scope="row">{product.id.toString()}</th>
