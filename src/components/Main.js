@@ -53,22 +53,19 @@ class Main extends Component {
                   <td>{window.web3.utils.fromWei(product.price.toString(), "ether")} Eth</td>
                   <td>{product.owner}</td>
                   <td>
-                    {!product.purchased
-                      ? <button
-                        name={product.id}
-                        value={product.price}
-                        disabled={product.isForSelling}
-                        onClick={(event) => {
-                          this.props.purchaseProduct(event.target.name, event.target.value)
-                        }}
-                        >
-                          Comprar
-                        </button>
-                      : null
-                    }
+                    <button
+                      name={product.id}
+                      value={product.price}
+                      disabled={product.isForSelling || product.owner === this.props.account}
+                      onClick={(event) => {
+                        this.props.purchaseProduct(event.target.name, event.target.value)
+                      }}
+                    >
+                        Comprar
+                      </button>
                   </td>
                   <td>
-                    {product.purchased
+                    {product.owner === this.props.account
                       ? <button
                         name={product.id}
                         value={product.price}
@@ -83,14 +80,12 @@ class Main extends Component {
                     }
                   </td>
                   <td>
-                    {product.purchased
+                    {product.isForSelling && product.owner === this.props.account
                       ? <button
                         name={product.id}
                         value={product.price}
                         onClick={(event) => {
                           this.props.changeProductStatusForSelling(event.target.name, false)
-                          // console.log(product)
-                          // console.log(this.props)
                         }}
                         >
                           Inativar
@@ -99,14 +94,12 @@ class Main extends Component {
                     }
                   </td>
                   <td>
-                    {!product.isForSelling
+                    {!product.isForSelling && product.owner === this.props.account
                       ? <button
                         name={product.id}
                         value={product.price}
                         onClick={(event) => {
                           this.props.changeProductStatusForSelling(event.target.name, true)
-                          // console.log(product)
-                          // console.log(this.props)
                         }}
                         >
                           Ativar

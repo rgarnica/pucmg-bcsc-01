@@ -37,6 +37,16 @@ contract Marketplace {
         bool purchased
     );
 
+    event ProductPriceChanged (
+        uint id,
+        uint price
+    );
+
+    event ProductStatusChanged (
+        uint id,
+        bool isForSelling
+    );
+
     constructor() {
         name = "Dapp University Marketplace";
         owner = msg.sender;
@@ -67,6 +77,8 @@ contract Marketplace {
         require(_price > 0, "Enter a valid price");
 
         products[_id].price = _price;
+
+        emit ProductPriceChanged(_id, _price);
     }
 
     function changeProductStatusForSelling(uint _id, bool _isForSelling) public {
@@ -75,8 +87,12 @@ contract Marketplace {
 
         //Make sure the product has valid id
         require(_product.id > 0 && _product.id <= productCount, "Enter valid id");
+        //Make sure only owners can edit the value
+        require(_product.owner == msg.sender, "Only product owner can change the status");
 
         products[_id].isForSelling = _isForSelling;
+
+        emit ProductStatusChanged(_id, _isForSelling);
     }
 
     function purchaseProduct(uint _id) public payable {
