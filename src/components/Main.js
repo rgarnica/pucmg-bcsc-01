@@ -113,7 +113,7 @@ class Main extends Component {
             })}
           </tbody>
         </table>
-        <p><a href="https://ropsten.etherscan.io/address/0x186ba2085C2649FEdB8f6D81Ce47b8943Cc9ee53" target="_blank">Informação do contrato</a></p>
+        <p><a href="https://rinkeby.etherscan.io/address/0x16336F8566a9d0b3a2dcA36b5e8685e5709dBed5" target="_blank">Informação do contrato</a></p>
       </div>
     );
   }

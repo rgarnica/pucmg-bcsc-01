@@ -38,6 +38,7 @@ class App extends Component {
       const productCount = await marketplace.methods.productCount().call()
       // console.log(productCount.toString())
       this.setState({ productCount })
+      this.setState({products: []});
       //Load products
       for (let i = 0; i <= productCount; i++) {
         const product = await marketplace.methods.products(i).call()
@@ -70,32 +71,32 @@ class App extends Component {
   createProduct = (name, price) => {
     this.setState({ loading: true })
     this.state.marketplace.methods.createProduct(name, price).send({ from: this.state.account })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false })
+      .once('confirmation', (receipt) => {
+        this.loadBlockchainData()
       })
   }
   
   purchaseProduct(id, price) {
     this.setState({ loading: true })
     this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false })
+      .once('confirmation', (receipt) => {
+        this.loadBlockchainData()
       })
   }
 
   changeProductPrice = (id, price) => {
     this.setState({ loading: true })
     this.state.marketplace.methods.changeProductPrice(id, price).send({ from: this.state.account, value: price })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false })
+      .once('confirmation', (receipt) => {
+        this.loadBlockchainData()
       })
   }
 
   changeProductStatusForSelling = (id, status) => {
     this.setState({ loading: true })
     this.state.marketplace.methods.changeProductStatusForSelling(id, status).send({ from: this.state.account })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false })
+      .once('confirmation', (receipt) => {
+        this.loadBlockchainData()
       })
   }
 
