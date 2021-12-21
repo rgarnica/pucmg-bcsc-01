@@ -59,6 +59,8 @@ class App extends Component {
       account: '',
       productCount: 0,
       products: [],
+      productEdit: undefined,
+      showModal: false,
       loading: true
     }
 
@@ -75,7 +77,7 @@ class App extends Component {
         this.loadBlockchainData()
       })
   }
-  
+
   purchaseProduct(id, price) {
     this.setState({ loading: true })
     this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price })
@@ -100,6 +102,14 @@ class App extends Component {
       })
   }
 
+  changeModal = (status, product) => {
+    this.setState({ showModal: status })
+    if (product !== undefined) {
+      console.log(product);
+      this.setState({productEdit: product})
+    }
+  }
+
   render() {
     return (
       <div>
@@ -115,7 +125,10 @@ class App extends Component {
                   createProduct = {this.createProduct}
                   purchaseProduct = {this.purchaseProduct}
                   changeProductPrice = {this.changeProductPrice}
+                  showModal = {this.state.showModal}
+                  productEdit = {this.state.productEdit}
                   changeProductStatusForSelling = {this.changeProductStatusForSelling}
+                  changeModal = {this.changeModal}
                   />
               }
             </main>

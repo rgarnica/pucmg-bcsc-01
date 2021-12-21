@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 
 class Main extends Component {
 
@@ -72,7 +73,7 @@ class Main extends Component {
                         value={product.price}
                         disabled={product.owner != this.props.account}
                         onClick={(event) => {
-                          this.props.changeProductPrice(event.target.name, event.target.value)
+                          this.props.changeModal(true, product);
                         }}
                         >
                           Modificar Preço
@@ -113,6 +114,64 @@ class Main extends Component {
             })}
           </tbody>
         </table>
+
+          <Modal show={this.props.showModal} onHide={(event) => {
+              this.props.changeModal(false, undefined);
+          }}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Alterar Produto</Modal.Title>
+              </Modal.Header>
+              <form  onSubmit={(event) => {
+                  event.preventDefault()
+                  const name = this.productName.value
+                  const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
+                  this.props.changeProductPrice(name, price)
+              }}>
+              <Modal.Body>
+                  <div className="form-group mr-sm-2">
+                      <input
+                          value={this.props.productEdit !== undefined ? this.props.productEdit.id : undefined }
+                          id="id"
+                          type="text"
+                          ref={(input) => { this.id = input }}
+                          className="form-control"
+                          placeholder="ID do produto"
+                          readOnly/>
+                  </div>
+                      <div className="form-group mr-sm-2">
+                          <input
+                              value={this.props.productEdit !== undefined ? this.props.productEdit.name : undefined }
+                              id="name"
+                              type="text"
+                              ref={(input) => { this.productName = input }}
+                              className="form-control"
+                              placeholder="Nome do produto"
+                              readOnly/>
+                      </div>
+                      <div className="form-group mr-sm-2">
+                          <input
+                              defaultValue={this.props.productEdit !== undefined ? window.web3.utils.fromWei(this.props.productEdit.price.toString(), "ether")  : undefined }
+                              id="price"
+                              type="text"
+                              ref={(input) => { this.productPrice = input }}
+                              className="form-control"
+                              placeholder="Preço do produto (em Ether)"
+                              required />
+                      </div>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button type="button" variant="secondary" onClick={(event) => {
+                      this.props.changeModal(false, undefined);
+                  }}>
+                      Cancelar
+                  </Button>
+                  <Button type="submit" variant="primary" >
+                      Salvar
+                  </Button>
+              </Modal.Footer>
+              </form>
+          </Modal>
+
         <p><a href="https://rinkeby.etherscan.io/address/0x16336F8566a9d0b3a2dcA36b5e8685e5709dBed5" target="_blank">Informação do contrato</a></p>
       </div>
     );
