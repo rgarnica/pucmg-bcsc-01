@@ -126,6 +126,7 @@ class Main extends Component {
                   const id = this.id.value
                   const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
                   this.props.changeProductPrice(id, price)
+                  this.props.changeModal(false, undefined);
               }}>
               <Modal.Body>
                   <div className="form-group mr-sm-2">
