@@ -88,7 +88,7 @@ class App extends Component {
 
   changeProductPrice = (id, price) => {
     this.setState({ loading: true })
-    this.state.marketplace.methods.changeProductPrice(id, price).send({ from: this.state.account, value: price })
+    this.state.marketplace.methods.changeProductPrice(id, price).send({ from: this.state.account })
       .once('confirmation', (receipt) => {
         this.loadBlockchainData()
       })

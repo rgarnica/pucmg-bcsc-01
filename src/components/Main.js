@@ -123,9 +123,9 @@ class Main extends Component {
               </Modal.Header>
               <form  onSubmit={(event) => {
                   event.preventDefault()
-                  const name = this.productName.value
+                  const id = this.id.value
                   const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
-                  this.props.changeProductPrice(name, price)
+                  this.props.changeProductPrice(id, price)
               }}>
               <Modal.Body>
                   <div className="form-group mr-sm-2">
