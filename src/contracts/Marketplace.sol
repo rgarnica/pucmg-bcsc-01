@@ -1,12 +1,6 @@
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.7.0;
-
-import "http://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/math/SafeMath.sol";
+pragma solidity ^0.5.0;
 
 contract Marketplace {
-    using SafeMath for uint;
-
-    uint constant platformTax = 5;
     string public name;
     uint public productCount=0;
     mapping(uint => Product) public products;
@@ -47,7 +41,7 @@ contract Marketplace {
         bool isForSelling
     );
 
-    constructor() {
+    constructor() public {
         name = "Dapp University Marketplace";
         owner = msg.sender;
     }
@@ -107,7 +101,7 @@ contract Marketplace {
         //Require that the buyer is not the seller
         require(msg.sender != _seller, "Buyer cannot be seller");
         //Require that the status is available for selling
-        require(!_product.isForSelling, "Product is not available for selling");
+        require(_product.isForSelling, "Product is not available for selling");
 
         //Transfer ownership to the buyer
         _product.owner = msg.sender;
@@ -116,13 +110,10 @@ contract Marketplace {
         //Update the product
         products[_id] = _product;
 
-        uint platformTaxAmount = msg.value.mul(platformTax.div(100));
-        uint sellerAmount = msg.value.sub(platformTaxAmount);
-
         //Pay the seller by sending them Ether
-        payable(_seller).transfer(sellerAmount);
+        address(_seller).transfer(msg.value * 95/100);
         //Pay the platform owner the tax amount
-        payable(owner).transfer(platformTaxAmount);
+        address(owner).transfer(msg.value * 5/100);
 
         //Trigger an event
         emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, true);
