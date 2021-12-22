@@ -173,7 +173,7 @@ class Main extends Component {
               </form>
           </Modal>
 
-        <p><a href="https://rinkeby.etherscan.io/address/0x16336F8566a9d0b3a2dcA36b5e8685e5709dBed5" target="_blank">Informação do contrato</a></p>
+        <p><a href="https://rinkeby.etherscan.io/address/0xF08e4acdDF14a0af4e17F2bc68E3A1b9659115b5" target="_blank">Informação do contrato</a></p>
       </div>
     );
   }
