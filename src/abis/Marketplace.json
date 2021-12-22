@@ -3,6 +3,7 @@
   "abi":[
     {
       "inputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
     },
@@ -54,6 +55,25 @@
         },
         {
           "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProductPriceChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
           "internalType": "string",
           "name": "name",
           "type": "string"
@@ -81,6 +101,26 @@
       "type": "event"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isForSelling",
+          "type": "bool"
+        }
+      ],
+      "name": "ProductStatusChanged",
+      "type": "event"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "internalType": "uint256",
@@ -95,10 +135,12 @@
       ],
       "name": "changeProductPrice",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
           "internalType": "uint256",
@@ -113,10 +155,12 @@
       ],
       "name": "changeProductStatusForSelling",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
           "internalType": "string",
@@ -131,10 +175,12 @@
       ],
       "name": "createProduct",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [],
       "name": "name",
       "outputs": [
@@ -144,10 +190,12 @@
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [],
       "name": "owner",
       "outputs": [
@@ -157,10 +205,12 @@
           "type": "address"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [],
       "name": "productCount",
       "outputs": [
@@ -170,10 +220,12 @@
           "type": "uint256"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -214,10 +266,12 @@
           "type": "bool"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
           "internalType": "uint256",
@@ -227,6 +281,7 @@
       ],
       "name": "purchaseProduct",
       "outputs": [],
+      "payable": true,
       "stateMutability": "payable",
       "type": "function"
     }
